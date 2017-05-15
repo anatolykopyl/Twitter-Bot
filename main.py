@@ -1,4 +1,3 @@
-
 from twython import Twython, TwythonError
 import random
 import sys
@@ -12,14 +11,13 @@ import shutil
 from check import *
 import authorization
 
-
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
-log_file=open('log_file.txt','a')
 
+log_file=open('log_file.txt','a')
 
 dir = str(os.getcwd())+'/'
 os.chdir(dir)
