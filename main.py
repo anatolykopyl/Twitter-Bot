@@ -31,7 +31,7 @@ def main():
 		id = authorization.id_generator()
 
 		imgFromUrl = urllib.urlopen('https://imgur.com/'+id+'.jpg')
-		file = open('/home/kokosso/Python/TwitterShitter/img.jpg', 'r+')
+		file = open(str(os.getcwd())'/img.jpg', 'r+')
 		file.write(imgFromUrl.read())
 		file.close()
 		Image.open(dir+'img.jpg').convert('RGB').save(dir+'img.jpg')
