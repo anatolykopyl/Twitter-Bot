@@ -9,6 +9,7 @@ import string
 import random
 import filecmp
 import shutil
+from pprint import pprint
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
@@ -59,6 +60,13 @@ def main():
 	tweetimg = open(dir+'img.jpg')
 	twitter.update_status_with_media(status = str, media = tweetimg)
 	print('https://imgur.com/'+id+'.jpg '+str)
+	
+	search_results = twitter.search(q="#TwitterShitter", count=5)
+	try:
+		for tweet in search_results["statuses"]:
+			twitter.retweet(id = tweet["id_str"])
+	except TwythonError as e:
+		print e
 	
 	time.sleep (60*30)
 
