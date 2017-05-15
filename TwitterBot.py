@@ -9,6 +9,8 @@ import string
 import random
 import filecmp
 import shutil
+
+#Pillow
 import PIL
 from PIL import Image, ImageDraw, ImageFont
 
@@ -22,11 +24,13 @@ model = app.models.get("general-v1.3")
 
 W = 440
 
+#Генератор случайного пятизначного ID для ссылки imgur.com
 def id_generator(size=5, chars=string.ascii_letters + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
+#Измерение температуры RPi
 cmd = '/opt/vc/bin/vcgencmd measure_temp'
 line = os.popen(cmd).readline().strip()
 temp = line.split('=')[1].split("'")[0]
@@ -38,6 +42,7 @@ def main():
 	shutil.copyfile(dir+'img.jpg', dir+'imgold.jpg')
 	while True:
 		id = id_generator()
+		#Скачиваем картинку с адреса, если скачать не удается, то картинка не перезапишется
 		imgFromUrl = urllib.urlopen('https://imgur.com/'+id+'.jpg')
 		file = open('/home/pi/TwitPiBot/img.jpg', 'r+')
 		file.write(imgFromUrl.read())
@@ -48,6 +53,7 @@ def main():
 		hsize = int((float(img.size[1])*float(wpercent)))
 		img = img.resize((W,hsize), PIL.Image.ANTIALIAS)
 		img.save(dir+'img.jpg')
+		#Смотрим перезаписалась ли картинка и не скачали ли мы заглушку удаленного изображения
 		if (filecmp.cmp(dir+'img.jpg', dir+'imgold.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla1.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla2.jpg') == False):
 			break
 	
