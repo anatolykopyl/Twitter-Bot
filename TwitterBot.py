@@ -22,6 +22,7 @@ from keys import *
 app = ClarifaiApp(CLIENT_ID, CLIENT_SECRET)
 model = app.models.get("general-v1.3")
 
+#Максимальная ширина картинки принимаемая твиттером
 W = 440
 
 #Генератор случайного пятизначного ID для ссылки imgur.com
