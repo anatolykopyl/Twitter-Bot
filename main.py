@@ -9,6 +9,8 @@ import random
 import filecmp
 import shutil
 from check import *
+from retweet import *
+
 import authorization
 
 import PIL
@@ -39,18 +41,21 @@ def main():
 		
 		if (filecmp.cmp(dir+'img.jpg', dir+'imgold.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla1.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla2.jpg') == False):
 			break
-	string = ''
+
+	tweet_text = ''
 	data = authorization.app.tag_urls(['https://imgur.com/'+id+'.jpg'])
 	i=0
 	for i in range(5):
-		string = string+'#'+data['outputs'][0]['data']['concepts'][i]['name'].replace(" ", "")+" "	 		
+		tweet_text = tweet_text+'#'+data['outputs'][0]['data']['concepts'][i]['name'].replace(" ", "")+" "	 		
 	tweetimg = open(dir+'img.jpg')
-	authorization.twitter.update_status_with_media(status = string, media = tweetimg)
+	authorization.twitter.update_status_with_media(status = tweet_text, media = tweetimg)
 	
-	log_str = "https://imgur.com/"+id+".jpg "+string+"\n"
+	log_str = "https://imgur.com/"+id+".jpg "+tweet_text+"\n"
 	log_file=open('log_file.txt', 'a')
 	log_file.write(log_str)
 	log_file.close()
 	print log_str,
 	
+	retweet()
+  
 	time.sleep (60*30)
