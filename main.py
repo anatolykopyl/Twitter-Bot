@@ -10,6 +10,7 @@ import filecmp
 import shutil
 from check import *
 from retweet import *
+
 import authorization
 
 import PIL
@@ -40,7 +41,7 @@ def main():
 		
 		if (filecmp.cmp(dir+'img.jpg', dir+'imgold.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla1.jpg') == False) and (filecmp.cmp(dir+'img.jpg', dir+'nla2.jpg') == False):
 			break
-	
+
 	tweet_text = ''
 	data = authorization.app.tag_urls(['https://imgur.com/'+id+'.jpg'])
 	i=0
@@ -56,5 +57,5 @@ def main():
 	print log_str,
 	
 	retweet()
-	
+  
 	time.sleep (60*30)
