@@ -17,8 +17,6 @@ from PIL import Image, ImageDraw, ImageFont
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
 
-log_file=open('log_file.txt','a')
-
 dir = str(os.getcwd())+'/'
 os.chdir(dir)
 
@@ -48,6 +46,11 @@ def main():
 		string = string+'#'+data['outputs'][0]['data']['concepts'][i]['name'].replace(" ", "")+" "	 		
 	tweetimg = open(dir+'img.jpg')
 	authorization.twitter.update_status_with_media(status = string, media = tweetimg)
-	log_file.write(str(u"https://imgur.com/'+id+'.jpg '+string+'\n"))
+	
+	log_str = "https://imgur.com/"+id+".jpg "+string+"\n"
+	log_file=open('log_file.txt', 'a')
+	log_file.write(log_str)
+	log_file.close()
+	print log_str,
 	
 	time.sleep (60*30)
