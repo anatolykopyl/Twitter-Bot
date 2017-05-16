@@ -10,6 +10,7 @@ import filecmp
 import shutil
 from check import *
 from retweet import *
+from deleteTweet import *
 
 import authorization
 
@@ -57,5 +58,6 @@ def main():
 	print log_str,
 	
 	retweet()
+	deleteTweet()
   
 	time.sleep (60*30)
