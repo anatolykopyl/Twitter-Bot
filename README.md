@@ -1,4 +1,4 @@
-# TwitterShitter
+# Twitter Bot
 
 ## Commands
 * #DeleteID %id% - deletes a tweet with the id %id%
